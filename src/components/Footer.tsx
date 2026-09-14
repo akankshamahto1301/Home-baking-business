@@ -1,5 +1,6 @@
 import { Instagram as InstagramIcon, MessageCircle, Phone } from 'lucide-react';
-import { bakeryConfig, waLink, telLink } from '@/data/bakery';
+import { bakeryConfig, telLink } from '@/data/bakery';
+import { copy, waOrder } from '@/data/copy';
 import BrandLogo from '@/components/BrandLogo';
 
 const footerLinks = [
@@ -19,7 +20,7 @@ export default function Footer() {
           <div>
             <BrandLogo inverse />
             <p className="mt-3 text-sm leading-relaxed text-cream-300">
-              {bakeryConfig.tagline} in {bakeryConfig.city}.
+              {copy.footer.blurb}
             </p>
 
             {/* Social icons */}
@@ -28,23 +29,23 @@ export default function Footer() {
                 href={bakeryConfig.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-400 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-600 hover:text-white"
                 aria-label="Instagram"
               >
                 <InstagramIcon className="h-5 w-5" />
               </a>
               <a
-                href={waLink(`Hi! I would like to place an order from ${bakeryConfig.name}.`)}
+                href={waOrder()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-400 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-600 hover:text-white"
                 aria-label="WhatsApp"
               >
                 <MessageCircle className="h-5 w-5" />
               </a>
               <a
                 href={telLink()}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-400 hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-cream-100/10 text-cream-200 transition-colors hover:bg-blush-600 hover:text-white"
                 aria-label="Phone"
               >
                 <Phone className="h-5 w-5" />
@@ -55,7 +56,7 @@ export default function Footer() {
           {/* Links */}
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
-              Quick Links
+              {copy.footer.links}
             </h4>
             <ul className="flex flex-wrap gap-x-6 gap-y-2">
               {footerLinks.map((link) => (
@@ -74,7 +75,7 @@ export default function Footer() {
           {/* Contact info */}
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gold-300">
-              Get in Touch
+              {copy.footer.contact}
             </h4>
             <ul className="space-y-2 text-sm text-cream-300">
               <li>{bakeryConfig.city}</li>
@@ -100,10 +101,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-cream-100/10 pt-6 sm:flex-row">
           <p className="text-xs text-cream-300">
-            © {new Date().getFullYear()} {bakeryConfig.name}. All rights reserved.
+            {copy.footer.legal(new Date().getFullYear(), bakeryConfig.name)}
           </p>
           <p className="text-xs text-cream-300">
-            Made with ♡ for sweet moments.
+            {copy.footer.note}
           </p>
         </div>
       </div>

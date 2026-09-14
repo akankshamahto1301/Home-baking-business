@@ -7,7 +7,7 @@
 export const bakeryConfig = {
   name: 'VMLAR',
   shortName: 'VMLAR',
-  tagline: 'Baked for the Moments That Matter',
+  tagline: 'Home-baked in Bengaluru. Cakes, brownies, cookies — WhatsApp the flavour.',
   city: 'Bengaluru',
   phone: '+91 9835788229',
   phoneRaw: '+91 9835788229',
@@ -25,6 +25,23 @@ export function waLink(message: string): string {
 
 export function telLink(): string {
   return `tel:${bakeryConfig.phoneRaw}`;
+}
+
+/** Sheets price, or a honest fallback — never a fake ₹XXX. */
+export function displayPrice(price: string | undefined | null): string {
+  const raw = (price ?? '').trim();
+  if (!raw) return 'Price on WhatsApp';
+
+  const collapsed = raw.replace(/[\s₹Rs.]/gi, '').toUpperCase();
+  if (
+    !collapsed ||
+    /^(X+|TBD|NA|N\/A|-|0)$/.test(collapsed) ||
+    collapsed.includes('XXX')
+  ) {
+    return 'Price on WhatsApp';
+  }
+
+  return raw;
 }
 
 /**
@@ -55,36 +72,36 @@ export const menu: MenuCategory[] = [
     items: [
       {
         name: 'Chocolate Truffle Cake',
-        description: 'Rich chocolate sponge layered with silky ganache and a glossy truffle glaze.',
-        price: '₹XXX',
+        description: 'Dark sponge, ganache, glossy top. The one people send when they do not want to pick.',
+        price: '',
         image: 'https://images.pexels.com/photos/19940993/pexels-photo-19940993.png?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Chocolate truffle cake slice',
       },
       {
         name: 'Red Velvet Cake',
-        description: 'Cocoa-kissed red velvet layers with smooth cream cheese frosting.',
-        price: '₹XXX',
+        description: 'Cocoa sponge, cream cheese. Write the name on it.',
+        price: '',
         image: 'https://images.pexels.com/photos/5112676/pexels-photo-5112676.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Red velvet cake slice with cream cheese frosting',
       },
       {
         name: 'Biscoff Cake',
-        description: 'Caramelised Biscoff spread swirled into a light, spiced sponge.',
-        price: '₹XXX',
+        description: 'Lotus spread through the sponge. Spiced, sweet — a lot of second orders.',
+        price: '',
         image: 'https://images.pexels.com/photos/10249465/pexels-photo-10249465.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Biscoff cheesecake with Lotus biscuit',
       },
       {
         name: 'Vanilla Cake',
-        description: 'Classic vanilla bean sponge with whipped cream and fresh seasonal fruit.',
-        price: '₹XXX',
+        description: 'Vanilla sponge, whipped cream, fruit. The office birthday that still tastes like cake.',
+        price: '',
         image: 'https://images.pexels.com/photos/12933560/pexels-photo-12933560.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Vanilla cream cake with strawberries',
       },
       {
         name: 'Fresh Fruit Cake',
-        description: 'Light sponge topped with a medley of fresh fruit and velvety cream.',
-        price: '₹XXX',
+        description: 'Sponge, cream, fruit from the market that week. Say the date; fruit follows the stall.',
+        price: '',
         image: 'https://images.pexels.com/photos/28254500/pexels-photo-28254500.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Fresh fruit cake with berries and cream',
       },
@@ -96,22 +113,22 @@ export const menu: MenuCategory[] = [
     items: [
       {
         name: 'Classic Chocolate Brownie',
-        description: 'Fudgy, gooey centre with a crackly top — pure chocolate indulgence.',
-        price: '₹XXX',
+        description: 'Fudgy middle, crackly top. Boxes of 6 or 12.',
+        price: '',
         image: 'https://images.pexels.com/photos/33917898/pexels-photo-33917898.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Classic chocolate brownie',
       },
       {
         name: 'Walnut Brownie',
-        description: 'Toasted walnuts folded into a dense, chewy chocolate base.',
-        price: '₹XXX',
+        description: 'Same slab, toasted walnuts through it. Ask for a box if it is a house thing.',
+        price: '',
         image: 'https://images.pexels.com/photos/6390689/pexels-photo-6390689.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Walnut brownie with berries',
       },
       {
         name: 'Biscoff Brownie',
-        description: 'Swirls of melted Biscoff through a rich, fudgy brownie slab.',
-        price: '₹XXX',
+        description: 'Biscoff swirled through the chocolate. The gift-box regular.',
+        price: '',
         image: 'https://images.pexels.com/photos/28935534/pexels-photo-28935534.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Biscoff brownie with cream drizzle',
       },
@@ -123,22 +140,22 @@ export const menu: MenuCategory[] = [
     items: [
       {
         name: 'Chocolate Chip Cookies',
-        description: 'Buttery cookies with pools of melted dark chocolate chunks.',
-        price: '₹XXX',
+        description: 'Butter dough, dark chocolate pools. A dozen for the office table.',
+        price: '',
         image: 'https://images.pexels.com/photos/1196301/pexels-photo-1196301.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Chocolate chip cookies',
       },
       {
         name: 'Double Chocolate Cookies',
-        description: 'Cocoa dough studded with white and dark chocolate chips.',
-        price: '₹XXX',
+        description: 'Cocoa dough, white and dark chips. Heavier than the butter cookie.',
+        price: '',
         image: 'https://images.pexels.com/photos/5847092/pexels-photo-5847092.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Double chocolate chunk cookies',
       },
       {
         name: 'Butter Cookies',
-        description: 'Melt-in-the-mouth shortbread-style cookies with a delicate crumb.',
-        price: '₹XXX',
+        description: 'Shortbread crumb. Quiet cookie — tea, tins, people who skip chocolate.',
+        price: '',
         image: 'https://images.pexels.com/photos/797761/pexels-photo-797761.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Butter cookies on a cooling rack',
       },
@@ -150,51 +167,26 @@ export const menu: MenuCategory[] = [
     items: [
       {
         name: 'Chocolate Cupcake',
-        description: 'Moist chocolate sponge topped with swirled chocolate buttercream.',
-        price: '₹XXX',
+        description: 'Chocolate sponge, buttercream. A dozen for a table when a full cake is too much.',
+        price: '',
         image: 'https://images.pexels.com/photos/1028714/pexels-photo-1028714.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Chocolate cupcake with frosting',
       },
       {
         name: 'Red Velvet Cupcake',
-        description: 'Red velvet sponge with a cloud of cream cheese frosting.',
-        price: '₹XXX',
+        description: 'Red velvet, cream cheese. Same batter as the cake, smaller.',
+        price: '',
         image: 'https://images.pexels.com/photos/6493067/pexels-photo-6493067.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Red velvet cupcake with pink frosting',
       },
       {
         name: 'Vanilla Cupcake',
-        description: 'Light vanilla sponge with pastel buttercream and sprinkles.',
-        price: '₹XXX',
+        description: 'Vanilla sponge, buttercream. Say if you want writing or a colour.',
+        price: '',
         image: 'https://images.pexels.com/photos/14105/pexels-photo-14105.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
         alt: 'Vanilla cupcake with colorful icing',
       },
     ],
-  },
-];
-
-/**
- * ============================================================
- *  CUSTOM CAKES GALLERY
- * ============================================================
- */
-
-export const customCakes = [
-  {
-    image: 'https://images.pexels.com/photos/34833097/pexels-photo-34833097.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Pink two-tier birthday cake with roses',
-  },
-  {
-    image: 'https://images.pexels.com/photos/5691261/pexels-photo-5691261.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Yellow birthday cake with macarons',
-  },
-  {
-    image: 'https://images.pexels.com/photos/28171622/pexels-photo-28171622.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'White floral celebration cake',
-  },
-  {
-    image: 'https://images.pexels.com/photos/27176374/pexels-photo-27176374.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'First birthday cake with cupcakes',
   },
 ];
 
@@ -214,12 +206,12 @@ export const gallery: GalleryImage[] = [
   {
     image: 'https://images.pexels.com/photos/12616001/pexels-photo-12616001.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Decorated chocolate birthday cake',
-    label: 'Birthday Cakes',
+    label: 'Birthday cake',
   },
   {
     image: 'https://images.pexels.com/photos/29051739/pexels-photo-29051739.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Elegant floral wedding cakes',
-    label: 'Custom Cakes',
+    label: 'Layer cake',
   },
   {
     image: 'https://images.pexels.com/photos/15896658/pexels-photo-15896658.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
@@ -239,17 +231,17 @@ export const gallery: GalleryImage[] = [
   {
     image: 'https://images.pexels.com/photos/10390457/pexels-photo-10390457.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Assorted dessert gift box',
-    label: 'Dessert Boxes',
+    label: 'Gift box',
   },
   {
     image: 'https://images.pexels.com/photos/30575774/pexels-photo-30575774.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Homemade chocolate cake with pistachios',
-    label: 'Custom Cakes',
+    label: 'Chocolate cake',
   },
   {
     image: 'https://images.pexels.com/photos/28159640/pexels-photo-28159640.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     alt: 'Luxury dessert platter',
-    label: 'Dessert Boxes',
+    label: 'Platter',
   },
 ];
 
@@ -262,23 +254,23 @@ export const gallery: GalleryImage[] = [
 export const whyChooseUs = [
   {
     icon: 'Wheat',
-    title: 'Freshly Baked',
-    description: 'Every order is baked fresh — never frozen, never sitting on a shelf.',
+    title: 'Baked after you message',
+    description: 'No stock on a shelf. The cake starts when the date and flavour are confirmed.',
   },
   {
     icon: 'Heart',
-    title: 'Made to Order',
-    description: 'Each treat is crafted only after you place your order, just for you.',
+    title: 'WhatsApp the brief',
+    description: 'Date, flavour, how many people. We reply with size and price, then we bake.',
   },
   {
     icon: 'Leaf',
-    title: 'Quality Ingredients',
-    description: 'Real butter, premium chocolate and fresh ingredients — no shortcuts.',
+    title: 'Butter, not shortening',
+    description: 'Real butter, proper chocolate. If the fruit is off that week, we say so.',
   },
   {
     icon: 'HeartHandshake',
-    title: 'Made With Love',
-    description: 'Small-batch, home-baked goodness in every single bite.',
+    title: 'One kitchen in Bengaluru',
+    description: 'Small batch. You get the cake that was baked for you, not a leftover from a tray.',
   },
 ];
 
@@ -291,39 +283,60 @@ export const whyChooseUs = [
 export const occasions = [
   {
     icon: 'PartyPopper',
-    label: 'Festive Specials',
-    message:
-      "Hi! I'm interested in your Festive Specials. Could you share the available options?",
+    label: 'Festivals',
+    message: `Hi ${bakeryConfig.name} — festive order.
+
+Festival / date:
+What I want (cake / cupcakes / brownie box / cookie box):
+How many people:`,
   },
   {
     icon: 'Gift',
-    label: 'Gift Boxes',
-    message:
-      "Hi! I'm interested in your Gift Boxes. Could you share the available options?",
+    label: 'Gift boxes',
+    message: `Hi ${bakeryConfig.name} — gift box.
+
+Date needed:
+Brownies, cookies, or mixed:
+How many boxes:
+Any note on the box:`,
   },
   {
     icon: 'Cake',
     label: 'Birthdays',
-    message:
-      "Hi! I'd like to order something for a birthday. Can we discuss the options?",
+    message: `Hi ${bakeryConfig.name} — birthday cake.
+
+Date of the birthday:
+Flavour (truffle / red velvet / Biscoff / fruit / vanilla):
+How many people:
+Name / message on the cake:`,
   },
   {
     icon: 'Heart',
-    label: 'Celebrations',
-    message:
-      "Hi! I'm planning a celebration and would like to discuss dessert options.",
+    label: 'Anniversaries',
+    message: `Hi ${bakeryConfig.name} — anniversary cake.
+
+Date:
+Flavour:
+How many people:`,
   },
   {
     icon: 'Package',
-    label: 'Bulk Orders',
-    message:
-      "Hi! I'm interested in a bulk order. Could you share the available options?",
+    label: 'Office / bulk',
+    message: `Hi ${bakeryConfig.name} — office / bulk order.
+
+Date:
+What I want (cupcakes / brownies / cookies / cakes):
+How many people:
+I'll confirm a count.`,
   },
   {
     icon: 'Sparkles',
-    label: 'Custom Orders',
-    message:
-      "Hi! I have a custom dessert requirement. Can we discuss it?",
+    label: 'A specific ask',
+    message: `Hi ${bakeryConfig.name} — I have a specific request.
+
+Date needed:
+What I want:
+Any allergies:`,
   },
 ];
 
@@ -335,19 +348,21 @@ export const occasions = [
 
 export const testimonials = [
   {
-    review: 'Absolutely loved the cake! It looked beautiful and tasted even better. The chocolate truffle was so rich and moist.',
+    review:
+      'Truffle cake for my mum in Indiranagar. Not too sweet, ganache held up.',
     author: 'Priya S.',
-    occasion: 'Birthday Order',
+    occasion: 'Birthday cake',
   },
   {
-    review: 'Ordered brownies for a family get-together and they disappeared in minutes. Fudgy, gooey and absolutely divine.',
+    review: 'Brownie box for a house thing. Gone before tea. Next time I am ordering two.',
     author: 'Arjun M.',
-    occasion: 'Brownie Box',
+    occasion: 'Brownie box',
   },
   {
-    review: 'The custom cake for our anniversary exceeded all expectations. Every detail was perfect. Thank you for making our day special.',
+    review:
+      'Anniversary cake — they wrote on it, ganache held up in the heat.',
     author: 'Riya & Karan',
-    occasion: 'Anniversary Cake',
+    occasion: 'Anniversary cake',
   },
 ];
 

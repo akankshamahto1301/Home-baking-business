@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 /**
  * Intersection Observer hook for scroll-triggered reveal animations.
- * Returns a ref to attach to the target element and a boolean for visibility.
+ * Only becomes visible when the element actually enters the viewport —
+ * no timed failsafe that marks below-fold content as already revealed.
  */
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   options?: { threshold?: number; rootMargin?: string }
@@ -12,7 +13,10 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -22,13 +26,16 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
         }
       },
       {
-        threshold: options?.threshold ?? 0.15,
-        rootMargin: options?.rootMargin ?? '0px 0px -60px 0px',
+        threshold: options?.threshold ?? 0.12,
+        rootMargin: options?.rootMargin ?? '0px 0px -8% 0px',
       }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+    };
   }, [options?.threshold, options?.rootMargin]);
 
   return { ref, isVisible };
