@@ -1,4 +1,5 @@
-import type { MenuCategory, MenuItem } from '@/data/bakery';
+import { menu, type MenuCategory, type MenuItem } from '@/data/bakery';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 const SHEET_URL =
   'https://docs.google.com/spreadsheets/d/1I-nyMnK01FQkz36qXZR7XzHo2TzIR8hVrioNYUonH_s/gviz/tq?tqx=out:csv';
@@ -49,7 +50,16 @@ function parseCSV(csv: string): string[][] {
 }
 
 export async function fetchMenu(): Promise<MenuCategory[]> {
-  const response = await fetch(SHEET_URL);
+  try {
+    return await loadMenuFromSheet();
+  } catch (error) {
+    console.error('Failed to load menu from Google Sheets, using fallback.', error);
+    return menu;
+  }
+}
+
+async function loadMenuFromSheet(): Promise<MenuCategory[]> {
+  const response = await fetchWithTimeout(SHEET_URL);
 
   if (!response.ok) {
     throw new Error('Unable to load menu from Google Sheets');

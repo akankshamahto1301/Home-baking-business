@@ -1,3 +1,6 @@
+import { testimonials } from '@/data/bakery';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
+
 export interface Review {
   id: string;
   name: string;
@@ -59,8 +62,27 @@ function parseCSV(csv: string): string[][] {
   return rows;
 }
 
+const fallbackReviews: Review[] = testimonials.map((item, index) => ({
+  id: `fallback-${index}`,
+  name: item.author,
+  review: item.review,
+  rating: 5,
+  category: item.occasion,
+  approved: true,
+  photoUrl: '',
+}));
+
 export async function fetchReviews(): Promise<Review[]> {
-  const response = await fetch(`${REVIEWS_SHEET_URL}&_=${Date.now()}`);
+  try {
+    return await loadReviewsFromSheet();
+  } catch (error) {
+    console.error('Failed to load reviews from Google Sheets, using fallback.', error);
+    return fallbackReviews;
+  }
+}
+
+async function loadReviewsFromSheet(): Promise<Review[]> {
+  const response = await fetchWithTimeout(`${REVIEWS_SHEET_URL}&_=${Date.now()}`);
 
   if (!response.ok) {
     throw new Error('Unable to load reviews');
@@ -102,58 +124,13 @@ export async function fetchReviews(): Promise<Review[]> {
     );
 }
 
-function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const result = reader.result;
-
-      if (typeof result !== 'string') {
-        reject(new Error('Unable to read image'));
-        return;
-      }
-
-      // Remove "data:image/jpeg;base64," part
-      const base64 = result.split(',')[1];
-
-      if (!base64) {
-        reject(new Error('Unable to process image'));
-        return;
-      }
-
-      resolve(base64);
-    };
-
-    reader.onerror = () => {
-      reject(new Error('Unable to read image'));
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-
 export async function submitReview(data: {
   name: string;
   review: string;
   rating: number;
   category: string;
-  photo?: File | null;
 }) {
-  let photoData = null;
-
-  if (data.photo) {
-    console.log('PHOTO RECEIVED:', data.photo);
-    const base64 = await fileToBase64(data.photo);
-
-    photoData = {
-      name: data.photo.name,
-      type: data.photo.type,
-      data: base64,
-    };
-  }
-  console.log('PHOTO DATA SENT:', photoData);
-  await fetch(REVIEWS_API_URL, {
+  await fetchWithTimeout(REVIEWS_API_URL, {
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -164,7 +141,6 @@ export async function submitReview(data: {
       review: data.review,
       rating: data.rating,
       category: data.category,
-      photo: photoData,
     }),
   });
 }
