@@ -1,13 +1,22 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { gallery } from '@/data/bakery';
+import { fetchGallery, type GalleryItem } from '@/services/galleryService';
 import { copy } from '@/data/copy';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import TiltFrame from '@/components/TiltFrame';
 
 export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [gallery, setGallery] = useState<GalleryItem[]>([]);
   const { ref, isVisible } = useScrollReveal();
+
+  useEffect(() => {
+  fetchGallery()
+    .then(setGallery)
+    .catch((error) => {
+      console.error('Failed to load gallery:', error);
+    });
+}, []);
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
 

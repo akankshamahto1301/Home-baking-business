@@ -21,7 +21,7 @@ export const copy = {
     eyebrow: 'Bengaluru home kitchen',
     line1: 'Cakes are made to order.',
     line2: 'WhatsApp the flavour. We’ll bake it.',
-    body: 'VMLAR bakes after you confirm — chocolate truffle, red velvet, Biscoff, fruit, vanilla, plus brownies, cookies and cupcakes. No walk-in counter. WhatsApp the date and the flavour — we’ll take it from there.',
+    body: 'VMLAR bakes after you confirm - chocolate truffle, red velvet, fruit, vanilla, plus brownies, cookies and cupcakes. No walk-in counter. WhatsApp the date and the flavour we’ll take it from there.',
     ctaMenu: 'See the menu',
     ctaWhatsApp: 'WhatsApp the date',
     fact: 'Bengaluru · home kitchen · WhatsApp',
@@ -30,8 +30,8 @@ export const copy = {
   about: {
     eyebrow: 'The kitchen',
     heading: 'One oven in Bengaluru. Your order, not a display case.',
-    p1: 'This started as baking for family. It is still a home kitchen — WhatsApp in, we bake.',
-    p2: 'Birthday cakes, cupcakes, brownie boxes, cookie tins. Everything starts after you message — never sitting on a shelf.',
+    p1: 'This started as baking for family. It is still a home kitchen  WhatsApp in, we bake.',
+    p2: 'Birthday cakes, cupcakes, brownie boxes, cookie tins. Everything starts after you message  never sitting on a shelf.',
     cta: 'Ask about a date',
     stats: [
       { value: 'Cakes', label: 'Truffle to fruit' },
@@ -45,8 +45,8 @@ export const copy = {
     heading: 'Pick a flavour. Send the date.',
     body: 'Made after you message. Size and writing change the price — we confirm on WhatsApp. If the sheet is empty, ask; we will say what is actually baking.',
     loading: 'Loading the menu…',
-    error: 'Menu did not load. WhatsApp us — we will send what we can bake this week.',
-    empty: 'Nothing listed this week. WhatsApp — we will tell you what is in the oven.',
+    error: 'Menu did not load. WhatsApp us we will send what we can bake this week.',
+    empty: 'Nothing listed this week. WhatsApp  we will tell you what is in the oven.',
     fallbackCta: "WhatsApp this week's list",
     orderItem: 'WhatsApp this',
     priceOnWa: 'Price on WhatsApp',
@@ -66,14 +66,14 @@ export const copy = {
 
   occasions: {
     eyebrow: 'When you need us',
-    heading: 'Birthday, festival, office table — tap which one.',
-    body: 'Tap the occasion. The message already has the date and the flavour — fill the blanks and send.',
+    heading: 'Birthday, festival, office table tap which one.',
+    body: 'Tap the occasion. WhatsApp the date. We’ll confirm flavour, size, and price then we bake.',
   },
 
   reviews: {
     eyebrow: 'Reviews',
     heading: 'After they cut the cake.',
-    empty: 'No reviews loaded. If you ordered, write what you would tell a friend — we publish after a check.',
+    empty: 'No reviews loaded. If you ordered, write what you would tell a friend  we publish after a check.',
     formEyebrow: 'You ordered',
     formHeading: 'Say what you would tell a friend.',
     nameLabel: 'Your name',
@@ -85,8 +85,7 @@ export const copy = {
     reviewPlaceholder: 'Flavour, how it held up, would you order again?',
     submit: 'Send review',
     submitting: 'Sending…',
-    success: 'Got it. It goes up after we check it.',
-    approvalNote: 'We read them before they go up.',
+    success: 'Review sent. Thank you!',
     errors: {
       required: 'Name, a few lines, and a star rating.',
       submit: 'Could not send. Try again, or WhatsApp us.',
@@ -96,14 +95,13 @@ export const copy = {
   instagram: {
     eyebrow: '@vmlar_bakery',
     heading: 'This week’s tray is on Instagram.',
-    body: 'Sold-out notes and box photos live there. If you see something you want, WhatsApp the date from here.',
     cta: 'Open @vmlar_bakery',
   },
 
   contact: {
     eyebrow: 'Order',
     heading: 'Send us the date. We’ll look after the rest.',
-    body: 'Bengaluru only. We’ll reply with flavour, size, and price — then we bake.',
+    body: 'We’ll reply with flavour, size, and price then we bake.',
     location: 'Location',
     phone: 'Phone',
     whatsapp: 'WhatsApp',
@@ -113,7 +111,7 @@ export const copy = {
   },
 
   footer: {
-    blurb: 'Home kitchen in Bengaluru. Cakes, brownies, cookies — WhatsApp the flavour.',
+    blurb: 'Home kitchen in Bengaluru. Cakes, brownies, cookies  WhatsApp the flavour.',
     links: 'On this page',
     contact: 'Kitchen',
     legal: (year: number, name: string) => `© ${year} ${name}. All rights reserved.`,
@@ -122,7 +120,7 @@ export const copy = {
 
   error: {
     heading: 'This page broke.',
-    body: 'Refresh — or WhatsApp the order.',
+    body: 'Refresh  or WhatsApp the order.',
   },
 
   wa: {

@@ -1,8 +1,8 @@
-import { menu, type MenuCategory, type MenuItem } from '@/data/bakery';
+import { type MenuCategory, type MenuItem } from '@/data/bakery';
 import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 const SHEET_URL =
-  'https://docs.google.com/spreadsheets/d/1I-nyMnK01FQkz36qXZR7XzHo2TzIR8hVrioNYUonH_s/gviz/tq?tqx=out:csv';
+  'https://docs.google.com/spreadsheets/d/1I-nyMnK01FQkz36qXZR7XzHo2TzIR8hVrioNYUonH_s/gviz/tq?tqx=out:csv&sheet=menu';
 
 function parseCSV(csv: string): string[][] {
   const rows: string[][] = [];
@@ -49,13 +49,25 @@ function parseCSV(csv: string): string[][] {
   return rows;
 }
 
-export async function fetchMenu(): Promise<MenuCategory[]> {
-  try {
-    return await loadMenuFromSheet();
-  } catch (error) {
-    console.error('Failed to load menu from Google Sheets, using fallback.', error);
-    return menu;
+function convertGoogleDriveImageUrl(url: string): string {
+  if (!url) {
+    return '';
   }
+
+  // Extract Google Drive file ID from:
+  // https://drive.google.com/file/d/FILE_ID/view
+  const match = url.match(/\/file\/d\/([^/]+)/);
+
+  if (match?.[1]) {
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+  }
+
+  // If the URL is already an image URL, keep it unchanged
+  return url;
+}
+
+export async function fetchMenu(): Promise<MenuCategory[]> {
+  return await loadMenuFromSheet();
 }
 
 async function loadMenuFromSheet(): Promise<MenuCategory[]> {
@@ -81,7 +93,11 @@ async function loadMenuFromSheet(): Promise<MenuCategory[]> {
     return index === -1 ? '' : row[index]?.trim() ?? '';
   };
 
-  const items: (MenuItem & { category: string; id: string })[] = [];
+  const items: (MenuItem & {
+  category: string;
+  id: string;
+  allergens: string;
+})[] = [];
 
   for (const row of rows.slice(1)) {
     const available = getColumn(row, 'available').toLowerCase();
@@ -102,8 +118,10 @@ async function loadMenuFromSheet(): Promise<MenuCategory[]> {
       name,
       description: getColumn(row, 'description'),
       price: getColumn(row, 'price'),
-      image: getColumn(row, 'image'),
+      image: convertGoogleDriveImageUrl(getColumn(row, 'image')),
       alt: name,
+      allergens: getColumn(row, 'allergens'),
+
     });
   }
 
@@ -120,13 +138,14 @@ async function loadMenuFromSheet(): Promise<MenuCategory[]> {
       });
     }
 
-    categoryMap.get(categoryName)!.items.push({
-      name: item.name,
-      description: item.description,
-      price: item.price,
-      image: item.image,
-      alt: item.alt,
-    });
+  categoryMap.get(categoryName)!.items.push({
+  name: item.name,
+  description: item.description,
+  price: item.price,
+  image: item.image,
+  alt: item.alt,
+  allergens: item.allergens,
+});
   }
 
   return Array.from(categoryMap.values());

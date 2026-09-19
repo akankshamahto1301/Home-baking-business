@@ -228,6 +228,7 @@ export default function MenuSection() {
               >
                 {current.items.map((item, idx) => {
                   const priceLabel = displayPrice(item.price);
+                  const allergens = (item as typeof item & { allergens?: string }).allergens;
                   return (
                     <article
                       key={item.name}
@@ -239,12 +240,20 @@ export default function MenuSection() {
                         className="flex h-full flex-col overflow-hidden rounded-2xl bg-cream-50 shadow-md shadow-cocoa-900/5 transition-[box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-xl group-hover:shadow-cocoa-900/10"
                       >
                         <div className="relative h-52 overflow-hidden">
-                          <img
+                          {/* <img
                             src={item.image}
                             alt={item.alt}
                             className="h-full w-full object-cover transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                             loading="lazy"
-                          />
+                          /> */}
+                          <img
+  src={item.image}
+  alt={item.alt}
+  onError={() => console.log("IMAGE FAILED:", item.image)}
+  onLoad={() => console.log("IMAGE LOADED:", item.image)}
+  className="h-64 w-full object-cover object-center transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+  loading="eager"
+/>
                         </div>
 
                         <div className="flex flex-1 flex-col p-5">
@@ -254,12 +263,18 @@ export default function MenuSection() {
 
                           <p className="mt-2 flex-1 text-sm leading-relaxed text-cocoa-400">
                             {item.description}
+
+                            {allergens && (
+  <span className="mt-2 block text-xs text-cocoa-400">
+    Allergens: {allergens}
+  </span>
+)}
                           </p>
 
                           <p className="mt-4 text-sm font-medium text-gold-800">
                             {priceLabel === copy.menu.priceOnWa
                               ? priceLabel
-                              : copy.menu.startingFrom(priceLabel)}
+                              : `₹ ${priceLabel}`}
                           </p>
 
                           <a

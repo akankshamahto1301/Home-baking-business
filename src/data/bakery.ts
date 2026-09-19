@@ -12,8 +12,8 @@ export const bakeryConfig = {
   phone: '+91 9835788229',
   phoneRaw: '+91 9835788229',
   whatsapp: '919835788229',
-  instagram: 'https://instagram.com/vmlar_bakery',
-  instagramHandle: '@vmlar_bakery',
+  instagram: "https://www.instagram.com/vmlar_bakery?stkn=MTF6cnNhYnBndjVl",
+  instagramHandle: 'vmlar_bakery',
 };
 
 /**
@@ -57,6 +57,7 @@ export interface MenuItem {
   price: string;
   image: string;
   alt: string;
+  allergens?: string;
 }
 
 export interface MenuCategory {
