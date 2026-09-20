@@ -1,0 +1,44 @@
+# Deploy Vite `dist` to Firebase Hosting on every push to main.
+#
+# Required GitHub secret (repo Settings → Secrets and variables → Actions):
+#   FIREBASE_TOKEN — CI token from `firebase login:ci` (see repo docs / PR description)
+#
+# Alternative (not wired here): a GCP service account JSON secret used with
+# FirebaseExtended/action-hosting-deploy. Prefer FIREBASE_TOKEN for Spark.
+#
+# Project: home-baking-business · only hosting (does not change firebase.json / .firebaserc)
+
+name: Deploy Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: firebase-hosting-live
+  cancel-in-progress: false
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        run: npx firebase-tools deploy --only hosting --project home-baking-business --non-interactive
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

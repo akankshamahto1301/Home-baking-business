@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { MessageCircle } from 'lucide-react';
 import { copy, waOrder } from '@/data/copy';
+import WhatsAppIcon from '@/components/WhatsAppIcon';
 
 export default function FloatingWhatsApp() {
   const [heroGone, setHeroGone] = useState(false);
@@ -57,12 +58,12 @@ export default function FloatingWhatsApp() {
         href={orderHref}
         target="_blank"
         rel="noopener noreferrer"
-        className={`fixed bottom-5 right-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-blush-600 text-white shadow-lg shadow-blush-600/30 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:brightness-90 ${
+        className={`fixed bottom-5 right-5 z-40 h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-[#25D366]/35 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-[#20BD5A] ${
           heroGone ? 'hidden lg:flex' : 'flex'
         } ${pulse ? 'fab-pulse-once' : ''}`}
         aria-label={copy.nav.order}
       >
-        <MessageCircle className="h-7 w-7" />
+        <WhatsAppIcon className="h-7 w-7" />
       </a>
     </>
   );

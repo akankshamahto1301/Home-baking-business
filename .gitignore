@@ -22,5 +22,11 @@ dist-ssr
 *.sw?
 .env
 
+# Firebase local deploy cache
+.firebase/
+
+# Local mobile QA screenshots (not product assets)
+.mobile-qa-screenshots/
+
 # Graphify knowledge graph outputs
 graphify-out/

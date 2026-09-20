@@ -173,9 +173,9 @@
 }
 
 @keyframes fab-warm-pulse {
-  0% { box-shadow: 0 10px 24px rgba(168, 85, 99, 0.28), 0 0 0 0 rgba(216, 142, 154, 0.4); }
-  70% { box-shadow: 0 10px 24px rgba(168, 85, 99, 0.28), 0 0 0 14px rgba(216, 142, 154, 0); }
-  100% { box-shadow: 0 10px 24px rgba(168, 85, 99, 0.28), 0 0 0 0 rgba(216, 142, 154, 0); }
+  0% { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.32), 0 0 0 0 rgba(37, 211, 102, 0.45); }
+  70% { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.32), 0 0 0 14px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.32), 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
 @keyframes menu-card-in {
