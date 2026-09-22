@@ -48,7 +48,7 @@ export const copy = {
     error: 'Menu did not load. WhatsApp us we will send what we can bake this week.',
     empty: 'Nothing listed this week. WhatsApp  we will tell you what is in the oven.',
     fallbackCta: "WhatsApp this week's list",
-    orderItem: 'WhatsApp this',
+    orderItem: 'Order now',
     priceOnWa: 'Price on WhatsApp',
     startingFrom: (price: string) => `Starting from ${price}`,
   },
@@ -124,11 +124,7 @@ export const copy = {
   },
 
   wa: {
-    order: `Hi ${bakeryConfig.name} — I want to place an order.
-
-Date needed:
-What I want (cake / brownies / cookies / cupcakes):
-Occasion:`,
+    order: `Hi ${bakeryConfig.name}! I'd like to place an order. `,
 
     menuDown: `Hi ${bakeryConfig.name} — the menu isn't loading on the site.
 
@@ -136,11 +132,8 @@ What's available this week?
 I need (cake / brownies / cookies):
 Date:`,
 
-    item: (name: string) => `Hi ${bakeryConfig.name} — I want to order ${name}.
-
-Date needed:
-Occasion:
-How many people:`,
+   item: (name: string) =>
+  `Hi ${bakeryConfig.name}! I'd like to order a ${name}. Could you share the pricing and availability?`,
   },
 } as const;
 
