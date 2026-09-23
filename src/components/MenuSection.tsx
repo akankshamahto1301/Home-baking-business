@@ -17,7 +17,7 @@ function MenuFallback({ message }: { message: string }) {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8" aria-hidden="true">
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <div key={i} className="overflow-hidden rounded-2xl bg-cream-50 shadow-md shadow-cocoa-900/5">
-            <div className="h-52 w-full bg-cream-200" />
+            <div className="aspect-[4/3] w-full bg-cream-200" />
             <div className="flex flex-col gap-3 p-5">
               <div className="h-5 w-2/3 rounded-full bg-cream-200" />
               <div className="h-4 w-full rounded-full bg-cream-200" />
@@ -154,7 +154,7 @@ export default function MenuSection() {
                   key={i}
                   className="overflow-hidden rounded-2xl bg-cream-50 shadow-md shadow-cocoa-900/5"
                 >
-                  <div className="h-52 w-full animate-pulse bg-cream-200" />
+                  <div className="aspect-[4/3] w-full animate-pulse bg-cream-200" />
                   <div className="flex flex-col gap-3 p-5">
                     <div className="h-5 w-2/3 animate-pulse rounded-full bg-cream-200" />
                     <div className="h-4 w-full animate-pulse rounded-full bg-cream-200" />
@@ -239,21 +239,13 @@ export default function MenuSection() {
                         max={7}
                         className="flex h-full flex-col overflow-hidden rounded-2xl bg-cream-50 shadow-md shadow-cocoa-900/5 transition-[box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-xl group-hover:shadow-cocoa-900/10"
                       >
-                        <div className="relative h-52 overflow-hidden">
-                          {/* <img
+                        <div className="relative aspect-[4/3] overflow-hidden bg-cream-200">
+                          <img
                             src={item.image}
                             alt={item.alt}
-                            className="h-full w-full object-cover transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                            className="h-full w-full object-cover object-center transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
                             loading="lazy"
-                          /> */}
-                          <img
-  src={item.image}
-  alt={item.alt}
-  onError={() => console.log("IMAGE FAILED:", item.image)}
-  onLoad={() => console.log("IMAGE LOADED:", item.image)}
-  className="h-64 w-full object-cover object-center transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-  loading="eager"
-/>
+                          />
                         </div>
 
                         <div className="flex flex-1 flex-col p-5">

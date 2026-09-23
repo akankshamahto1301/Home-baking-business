@@ -84,7 +84,7 @@ export default function Gallery() {
                   <img
                     src={img.image}
                     alt={img.alt}
-                    className="w-full object-cover transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                    className="aspect-[4/5] h-auto w-full object-cover object-center transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                     loading="lazy"
                   />
 
